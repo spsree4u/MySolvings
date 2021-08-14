@@ -95,6 +95,30 @@ class BinaryTree:
 
         return _is_mirror(self.root, self.root)
 
+    def lowest_common_ancestor(self, node1_data, node2_data):
+        root1 = self.root
+
+        def lca(node, node1_value, node2_value):
+            if node is None:
+                return None
+            if node.data == node1_value or node.data == node2_value:
+                return node
+            left = lca(node.left, node1_value, node2_value)
+            right = lca(node.right, node1_value, node2_value)
+            if left is not None and right is not None:
+                return node
+            if left is None and right is None:
+                return None
+            if left is not None:
+                return left
+            else:
+                return right
+
+        res = lca(root1, node1_data, node2_data)
+        print("Lowest common ancestor of {} and {}:".format(node1_data,
+                                                            node2_data))
+        return res.data if res else None
+
 
 r = Node(1)
 r.left = Node(2)
@@ -109,6 +133,9 @@ bt.pre_order_recursive_travel()
 bt.convert_to_mirror_image()
 bt.in_order_recursive_travel()
 print(bt.is_symmetric())
+print(bt.lowest_common_ancestor(4, 5))
+print(bt.lowest_common_ancestor(3, 4))
+print(bt.lowest_common_ancestor(2, 4))
 root = Node(1)
 root.left = Node(2)
 root.right = Node(2)
@@ -116,5 +143,5 @@ root.left.left = Node(3)
 root.left.right = Node(4)
 root.right.left = Node(4)
 root.right.right = Node(3)
-bt = BinaryTree(root)
-print(bt.is_symmetric())
+bt2 = BinaryTree(root)
+print(bt2.is_symmetric())

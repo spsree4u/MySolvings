@@ -85,6 +85,15 @@ def inorder(root):
         inorder(root.right)
 
 
+def lowest_common_ancestor(root, node1_val, node2_val):
+    if root.value > max(node1_val, node2_val):
+        return lowest_common_ancestor(root.left, node1_val, node2_val)
+    elif root.value < min(node1_val, node2_val):
+        return lowest_common_ancestor(root.right, node1_val, node2_val)
+    else:
+        return root.value
+
+
 root1 = Node(50)
 a = root1.insert_left(30)
 b = root1.insert_right(80)
@@ -104,3 +113,7 @@ insert(r, 70)
 insert(r, 60)
 insert(r, 80)
 inorder(r)
+
+print(lowest_common_ancestor(r, 20, 60))
+print(lowest_common_ancestor(r, 80, 60))
+print(lowest_common_ancestor(r, 70, 60))
