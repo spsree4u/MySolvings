@@ -9,6 +9,8 @@ For example let us have a look at the sequence when N = 13:
 13 -> 40 -> 20 -> 10 -> 5 > 16 -> 8 -> 4 -> 2 -> 1
 """
 
+import profile
+
 
 # Find number of steps for an integer to reach 1 using Collatz conditions
 def find_count(n):
@@ -24,9 +26,12 @@ def find_count(n):
     return count
 
 
+print(find_count(11))
 print(find_count(9))
 print(find_count(3))
 print(find_count(0))
+print(find_count(6))
+print(find_count(999999999999999999999999999999999999999999999999999999999999))
 
 
 # Given an integer N. Find the number in the range from 1 to N-1 which is
@@ -39,7 +44,7 @@ def generate_collatz_map(n, collatz_map):
         collatz_map[n] = 1
 
     elif n % 2 == 0:
-        collatz_map[n] = 1 + generate_collatz_map(n/2, collatz_map)
+        collatz_map[n] = 1 + generate_collatz_map(n//2, collatz_map)
 
     else:
         collatz_map[n] = 1 + generate_collatz_map(3*n+1, collatz_map)
@@ -59,10 +64,13 @@ def find_max_count(n):
         if i not in collatz_map:
             generate_collatz_map(i, collatz_map)
 
-        if collatz_map[i]-1 > max_count:
-            max_count = collatz_map[i]-1
+        if collatz_map[i] > max_count:
+            max_count = collatz_map[i]
             number = i
+
     return number, max_count
 
 
 print(find_max_count(10))
+
+profile.run('find_count(9999999999999999999999999999999999999999999999999999)')
