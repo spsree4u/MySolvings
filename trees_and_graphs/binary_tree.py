@@ -119,6 +119,24 @@ class BinaryTree:
                                                             node2_data))
         return res.data if res else None
 
+    def lca_deepest_leaves(self):
+        print("Lowest common ancestor of deepest leaves:")
+        root1 = self.root
+
+        def lca(node, h):
+            if node is None:
+                return None, h - 1
+
+            left, lh = lca(node.left, h + 1)
+            right, rh = lca(node.right, h + 1)
+
+            if lh == rh:
+                return node, lh
+            else:
+                return (left, lh) if lh > rh else (right, rh)
+
+        return lca(root1, 0)[0]
+
 
 r = Node(1)
 r.left = Node(2)
@@ -136,6 +154,7 @@ print(bt.is_symmetric())
 print(bt.lowest_common_ancestor(4, 5))
 print(bt.lowest_common_ancestor(3, 4))
 print(bt.lowest_common_ancestor(2, 4))
+print(bt.lca_deepest_leaves().data)
 root = Node(1)
 root.left = Node(2)
 root.right = Node(2)
