@@ -1,4 +1,12 @@
 
+'''
+Type: Creational
+Name: Factory
+Use: Creates objects of different sub-classes (using base class type in type-based languages like Java, C++, etc) 
+without providing the details of class implementations to the client/user. 
+For a user, just some parameter which represent the class (for which the object is returned) is required and 
+using this object user can access the class attributes.
+'''
 
 class Product(object):
     name = ""
@@ -14,6 +22,7 @@ class P2(Product):
 
 class ProductFactory:
 
+    # Factory method which returns the class object on providing class name or some class identifier
     def create_product(self, prod_type):
         prod_type = prod_type.capitalize()
         return globals()[prod_type]()
