@@ -8,6 +8,7 @@ class Node:
         self.next = None
 
 
+# O(n) time O(1) memory
 def reverse_ll(head):
     prev = None
     current = head
@@ -20,6 +21,7 @@ def reverse_ll(head):
     return head
 
 
+# O(n) time O(n) memory
 def reverse_ll_recur(head, prev=None):
     next = head.next
     head.next = prev
