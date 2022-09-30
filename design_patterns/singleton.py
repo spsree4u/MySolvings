@@ -15,11 +15,15 @@ from threading import Lock, Thread
 class Singleton(type):
     _instances = {}
     _lock: Lock = Lock()
+    # _lock = Lock()
+    # print(_lock, Lock)
 
     def __call__(cls, *args, **kwargs):
-        with cls._lock:
-            if cls not in cls._instances:
-                cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        if cls not in cls._instances:
+            with cls._lock:
+                if cls not in cls._instances:
+                    cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        # print(cls._instances)
         return cls._instances[cls]
 
 class Logger(metaclass=Singleton):
@@ -40,5 +44,7 @@ def threaded_logger(msg):
 
 process1 = Thread(target=threaded_logger, args=("Hello Thread 1",))
 process2 = Thread(target=threaded_logger, args=("Hello Thread 2",))
+process3 = Thread(target=threaded_logger, args=("Hello Thread 3",))
 process1.start()
 process2.start()
+process3.start()
