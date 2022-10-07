@@ -8,6 +8,14 @@ Creates only a single instance of the class.
 3. To make thread-safe, lock before the creation part inside static method and unlock after 
    creation, only for the first time
 4. Make copy constructor and =operator overloading as private (in other languages)
+
+Issues with Singleton:
+1. Breaks object oriented design pattern as multiple instances can be created from multiple classes 
+which are inherited from a singleton class
+2. No control over creation of instance. Will not be able to know if the accessed instance is an already 
+existing or new and hence
+3. Testing code is difficult because we can't create a fresh instance for all instances
+4. Don't work well with multi threaded application
 """
 
 from threading import Lock, Thread
